@@ -10,6 +10,9 @@
 		7092EB8E1CE7DA28009BC5F0 /* SimpleSurvey.h in Headers */ = {isa = PBXBuildFile; fileRef = 7092EB8D1CE7DA28009BC5F0 /* SimpleSurvey.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7092EB951CE7DA28009BC5F0 /* SimpleSurvey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7092EB8A1CE7DA28009BC5F0 /* SimpleSurvey.framework */; };
 		7092EB9A1CE7DA28009BC5F0 /* SimpleSurveyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7092EB991CE7DA28009BC5F0 /* SimpleSurveyTests.swift */; };
+		7092EBA71CE7DB4D009BC5F0 /* DeviceInfo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7092EBA41CE7DB4D009BC5F0 /* DeviceInfo.framework */; };
+		7092EBA81CE7DB4D009BC5F0 /* SettingsActions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7092EBA51CE7DB4D009BC5F0 /* SettingsActions.framework */; };
+		7092EBA91CE7DB4D009BC5F0 /* VersionNumber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7092EBA61CE7DB4D009BC5F0 /* VersionNumber.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +32,9 @@
 		7092EB941CE7DA28009BC5F0 /* SimpleSurveyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleSurveyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7092EB991CE7DA28009BC5F0 /* SimpleSurveyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSurveyTests.swift; sourceTree = "<group>"; };
 		7092EB9B1CE7DA28009BC5F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7092EBA41CE7DB4D009BC5F0 /* DeviceInfo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DeviceInfo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7092EBA51CE7DB4D009BC5F0 /* SettingsActions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SettingsActions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7092EBA61CE7DB4D009BC5F0 /* VersionNumber.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VersionNumber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +42,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7092EBA71CE7DB4D009BC5F0 /* DeviceInfo.framework in Frameworks */,
+				7092EBA81CE7DB4D009BC5F0 /* SettingsActions.framework in Frameworks */,
+				7092EBA91CE7DB4D009BC5F0 /* VersionNumber.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,8 +80,8 @@
 		7092EB8C1CE7DA28009BC5F0 /* SimpleSurvey */ = {
 			isa = PBXGroup;
 			children = (
-				7092EB8D1CE7DA28009BC5F0 /* SimpleSurvey.h */,
-				7092EB8F1CE7DA28009BC5F0 /* Info.plist */,
+				7092EBAA1CE7DB55009BC5F0 /* Frameworks */,
+				7092EBAB1CE7DB64009BC5F0 /* Supporting Files */,
 			);
 			path = SimpleSurvey;
 			sourceTree = "<group>";
@@ -84,6 +93,26 @@
 				7092EB9B1CE7DA28009BC5F0 /* Info.plist */,
 			);
 			path = SimpleSurveyTests;
+			sourceTree = "<group>";
+		};
+		7092EBAA1CE7DB55009BC5F0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7092EBA41CE7DB4D009BC5F0 /* DeviceInfo.framework */,
+				7092EBA51CE7DB4D009BC5F0 /* SettingsActions.framework */,
+				7092EBA61CE7DB4D009BC5F0 /* VersionNumber.framework */,
+			);
+			name = Frameworks;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		7092EBAB1CE7DB64009BC5F0 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7092EB8D1CE7DA28009BC5F0 /* SimpleSurvey.h */,
+				7092EB8F1CE7DA28009BC5F0 /* Info.plist */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -314,6 +343,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = SimpleSurvey/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -330,6 +360,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = SimpleSurvey/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -378,6 +409,7 @@
 				7092EBA01CE7DA28009BC5F0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7092EBA11CE7DA28009BC5F0 /* Build configuration list for PBXNativeTarget "SimpleSurveyTests" */ = {
 			isa = XCConfigurationList;
@@ -386,6 +418,7 @@
 				7092EBA31CE7DA28009BC5F0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

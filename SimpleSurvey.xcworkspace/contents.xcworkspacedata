@@ -2,6 +2,15 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:SimpleSurvey/SimpleSurvey.xcodeproj">
+      location = "group:SimpleSurvey.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Carthage/Checkouts/SettingsActions/SettingsActions.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Carthage/Checkouts/VersionNumber/VersionNumber.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Carthage/Checkouts/DeviceInfo/DeviceInfo.xcodeproj">
    </FileRef>
 </Workspace>
