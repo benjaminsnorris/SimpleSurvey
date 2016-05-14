@@ -13,6 +13,7 @@
 		7092EBA71CE7DB4D009BC5F0 /* DeviceInfo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7092EBA41CE7DB4D009BC5F0 /* DeviceInfo.framework */; };
 		7092EBA81CE7DB4D009BC5F0 /* SettingsActions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7092EBA51CE7DB4D009BC5F0 /* SettingsActions.framework */; };
 		7092EBA91CE7DB4D009BC5F0 /* VersionNumber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7092EBA61CE7DB4D009BC5F0 /* VersionNumber.framework */; };
+		7092EBAD1CE7DC0F009BC5F0 /* SurveyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7092EBAC1CE7DC0F009BC5F0 /* SurveyView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,7 @@
 		7092EBA41CE7DB4D009BC5F0 /* DeviceInfo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DeviceInfo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7092EBA51CE7DB4D009BC5F0 /* SettingsActions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SettingsActions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7092EBA61CE7DB4D009BC5F0 /* VersionNumber.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VersionNumber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7092EBAC1CE7DC0F009BC5F0 /* SurveyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurveyView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,8 +82,9 @@
 		7092EB8C1CE7DA28009BC5F0 /* SimpleSurvey */ = {
 			isa = PBXGroup;
 			children = (
-				7092EBAA1CE7DB55009BC5F0 /* Frameworks */,
+				7092EBAC1CE7DC0F009BC5F0 /* SurveyView.swift */,
 				7092EBAB1CE7DB64009BC5F0 /* Supporting Files */,
+				7092EBAA1CE7DB55009BC5F0 /* Frameworks */,
 			);
 			path = SimpleSurvey;
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7092EBAD1CE7DC0F009BC5F0 /* SurveyView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +343,7 @@
 		7092EB9F1CE7DA28009BC5F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -351,12 +356,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = design.bsn.SimpleSurvey;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		7092EBA01CE7DA28009BC5F0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
