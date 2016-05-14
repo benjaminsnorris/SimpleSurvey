@@ -94,11 +94,28 @@ private extension SurveyView {
         
         let blurEffect = UIBlurEffect(style: lightBackground ? .Light : .Dark)
         blurredBackground = UIVisualEffectView(effect: blurEffect)
+        addSubview(blurredBackground)
         blurredBackground.translatesAutoresizingMaskIntoConstraints = false
         blurredBackground.leadingAnchor.constraintEqualToAnchor(leadingAnchor).active = true
         blurredBackground.topAnchor.constraintEqualToAnchor(topAnchor).active = true
         blurredBackground.trailingAnchor.constraintEqualToAnchor(trailingAnchor).active = true
         blurredBackground.bottomAnchor.constraintEqualToAnchor(bottomAnchor).active = true
+        
+        mainStackView.translatesAutoresizingMaskIntoConstraints = false
+        blurredBackground.contentView.addSubview(mainStackView)
+        let mainLeading = mainStackView.leadingAnchor.constraintEqualToAnchor(leadingAnchor)
+        mainLeading.priority = UILayoutPriorityDefaultHigh
+        mainLeading.active = true
+        let mainTrailing = mainStackView.trailingAnchor.constraintEqualToAnchor(trailingAnchor)
+        mainTrailing.priority = UILayoutPriorityDefaultHigh
+        mainTrailing.active = true
+        mainStackView.topAnchor.constraintEqualToAnchor(topAnchor).active = true
+        mainStackView.bottomAnchor.constraintEqualToAnchor(bottomAnchor).active = true
+        
+        mainStackView.addArrangedSubview(titleLabel)
+        titleLabel.text = "Are you happy with this app?"
+        
+        updateColors()
     }
     
 }
