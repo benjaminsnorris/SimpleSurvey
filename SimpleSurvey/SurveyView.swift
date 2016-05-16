@@ -53,6 +53,14 @@ import UIKit
     private var blurredBackground: UIVisualEffectView!
     
     
+    // MARK: - Constants
+    
+    private let maxWidth: CGFloat = 350.0
+    private let outerMargin: CGFloat = 6.0
+    private let internalMargin: CGFloat = 6.0
+    private let buttonHeight: CGFloat = 44.0
+    
+    
     // MARK: - Lifecycle overrides
     
     public override init(frame: CGRect) {
@@ -103,17 +111,33 @@ private extension SurveyView {
         
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         blurredBackground.contentView.addSubview(mainStackView)
-        let mainLeading = mainStackView.leadingAnchor.constraintEqualToAnchor(leadingAnchor)
+        let mainLeading = mainStackView.leadingAnchor.constraintEqualToAnchor(blurredBackground.leadingAnchor, constant: outerMargin)
         mainLeading.priority = UILayoutPriorityDefaultHigh
         mainLeading.active = true
-        let mainTrailing = mainStackView.trailingAnchor.constraintEqualToAnchor(trailingAnchor)
+        let mainTrailing = mainStackView.trailingAnchor.constraintEqualToAnchor(blurredBackground.trailingAnchor, constant: -outerMargin)
         mainTrailing.priority = UILayoutPriorityDefaultHigh
         mainTrailing.active = true
-        mainStackView.topAnchor.constraintEqualToAnchor(topAnchor).active = true
-        mainStackView.bottomAnchor.constraintEqualToAnchor(bottomAnchor).active = true
+        mainStackView.topAnchor.constraintEqualToAnchor(blurredBackground.topAnchor, constant: outerMargin).active = true
+        mainStackView.bottomAnchor.constraintEqualToAnchor(blurredBackground.bottomAnchor, constant: -outerMargin).active = true
+        mainStackView.widthAnchor.constraintLessThanOrEqualToConstant(maxWidth).active = true
+        mainStackView.spacing = internalMargin
+        mainStackView.axis = .Vertical
         
         mainStackView.addArrangedSubview(titleLabel)
+        titleLabel.numberOfLines = 0
         titleLabel.text = "Are you happy with this app?"
+        
+        mainStackView.addArrangedSubview(internalStackView)
+        internalStackView.axis = .Horizontal
+        internalStackView.distribution = .FillEqually
+        internalStackView.spacing = internalMargin
+        internalStackView.heightAnchor.constraintEqualToConstant(buttonHeight).active = true
+        
+        internalStackView.addArrangedSubview(buttonOne)
+        buttonOne.setTitle("No", forState: .Normal)
+        
+        internalStackView.addArrangedSubview(buttonTwo)
+        buttonTwo.setTitle("Yes", forState: .Normal)
         
         updateColors()
     }
