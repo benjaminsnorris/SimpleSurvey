@@ -37,6 +37,24 @@ import UIKit
         }
     }
     
+    @IBInspectable public var cornerRadius: CGFloat = 4.0 {
+        didSet {
+            updateCorners()
+        }
+    }
+    
+    @IBInspectable public var titleFont: UIFont = UIFont.systemFontOfSize(17.0, weight: UIFontWeightMedium) {
+        didSet {
+            updateFonts()
+        }
+    }
+    
+    @IBInspectable public var buttonFont: UIFont = UIFont.systemFontOfSize(17.0, weight: UIFontWeightBold) {
+        didSet {
+            updateFonts()
+        }
+    }
+    
     
     // MARK: - Internal properties
     
@@ -88,16 +106,35 @@ private extension SurveyView {
     
     private func updateColors() {
         titleLabel.textColor = titleTextColor
-        updateButtonColors(buttonOne)
-        updateButtonColors(buttonTwo)
+        updateColors(buttonOne)
+        updateColors(buttonTwo)
         let newBlur = UIBlurEffect(style: lightBackground ? .Light : .Dark)
         blurredBackground.effect = newBlur
         vibrancyView.effect = UIVibrancyEffect(forBlurEffect: newBlur)
     }
     
-    private func updateButtonColors(button: UIButton) {
+    private func updateColors(button: UIButton) {
         button.backgroundColor = tintColor
         button.setTitleColor(buttonTextColor, forState: .Normal)
+    }
+    
+    private func updateCorners() {
+        updateCorners(buttonOne)
+        updateCorners(buttonTwo)
+    }
+    
+    private func updateCorners(button: UIButton) {
+        button.layer.cornerRadius = cornerRadius
+    }
+    
+    private func updateFonts() {
+        updateFont(buttonOne)
+        updateFont(buttonTwo)
+        titleLabel.font = titleFont
+    }
+    
+    private func updateFont(button: UIButton) {
+        button.titleLabel?.font = buttonFont
     }
     
     private func setupViews() {
@@ -153,12 +190,14 @@ private extension SurveyView {
         internalStackView.heightAnchor.constraintEqualToConstant(buttonHeight).active = true
         
         internalStackView.addArrangedSubview(buttonOne)
-        buttonOne.setTitle("No", forState: .Normal)
+        buttonOne.setTitle("NO", forState: .Normal)
         
         internalStackView.addArrangedSubview(buttonTwo)
-        buttonTwo.setTitle("Yes", forState: .Normal)
+        buttonTwo.setTitle("YES", forState: .Normal)
         
         updateColors()
+        updateCorners()
+        updateFonts()
     }
     
 }
