@@ -61,6 +61,13 @@ import UIKit
     var titleLabel = UILabel()
     var buttonOne = UIButton(type: .System)
     var buttonTwo = UIButton(type: .System)
+    var currentState = State.Initial
+    
+    enum State {
+        case Initial
+        case Positive
+        case Negative
+    }
     
     
     // MARK: - Private properties
@@ -189,9 +196,11 @@ private extension SurveyView {
         
         internalStackView.addArrangedSubview(buttonOne)
         buttonOne.setTitle("NO", forState: .Normal)
+        buttonOne.addTarget(self, action: #selector(negativeButtonTouched), forControlEvents: .TouchUpInside)
         
         internalStackView.addArrangedSubview(buttonTwo)
         buttonTwo.setTitle("YES", forState: .Normal)
+        buttonTwo.addTarget(self, action: #selector(positiveButtonTouched), forControlEvents: .TouchUpInside)
         
         updateColors()
         updateCorners()

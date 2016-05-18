@@ -15,6 +15,7 @@
 		7092EBA91CE7DB4D009BC5F0 /* VersionNumber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7092EBA61CE7DB4D009BC5F0 /* VersionNumber.framework */; };
 		7092EBAD1CE7DC0F009BC5F0 /* SurveyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7092EBAC1CE7DC0F009BC5F0 /* SurveyView.swift */; };
 		7092EBAF1CE7E31E009BC5F0 /* Example.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7092EBAE1CE7E31E009BC5F0 /* Example.storyboard */; };
+		70DCA86F1CECC3CE003C6422 /* SurveyViewActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DCA86E1CECC3CE003C6422 /* SurveyViewActions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +40,7 @@
 		7092EBA61CE7DB4D009BC5F0 /* VersionNumber.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VersionNumber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7092EBAC1CE7DC0F009BC5F0 /* SurveyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurveyView.swift; sourceTree = "<group>"; };
 		7092EBAE1CE7E31E009BC5F0 /* Example.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Example.storyboard; sourceTree = "<group>"; };
+		70DCA86E1CECC3CE003C6422 /* SurveyViewActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurveyViewActions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				7092EBAC1CE7DC0F009BC5F0 /* SurveyView.swift */,
+				70DCA86E1CECC3CE003C6422 /* SurveyViewActions.swift */,
 				7092EBAE1CE7E31E009BC5F0 /* Example.storyboard */,
 				7092EBAB1CE7DB64009BC5F0 /* Supporting Files */,
 				7092EBAA1CE7DB55009BC5F0 /* Frameworks */,
@@ -230,6 +233,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70DCA86F1CECC3CE003C6422 /* SurveyViewActions.swift in Sources */,
 				7092EBAD1CE7DC0F009BC5F0 /* SurveyView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
