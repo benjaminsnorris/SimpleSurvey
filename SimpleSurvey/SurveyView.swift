@@ -75,7 +75,6 @@ import UIKit
     // MARK: - Constants
     
     private let maxWidth: CGFloat = 350.0
-    private let minWidth: CGFloat = 280.0
     private let outerMargin: CGFloat = 6.0
     private let internalMargin: CGFloat = 6.0
     private let buttonHeight: CGFloat = 44.0
@@ -161,7 +160,6 @@ private extension SurveyView {
         mainStackView.topAnchor.constraintEqualToAnchor(blurredBackground.topAnchor, constant: outerMargin).active = true
         mainStackView.bottomAnchor.constraintEqualToAnchor(blurredBackground.bottomAnchor, constant: -outerMargin).active = true
         mainStackView.widthAnchor.constraintLessThanOrEqualToConstant(maxWidth).active = true
-        mainStackView.widthAnchor.constraintGreaterThanOrEqualToConstant(minWidth).active = true
         mainStackView.centerXAnchor.constraintEqualToAnchor(blurredBackground.centerXAnchor).active = true
         
         mainStackView.spacing = internalMargin
