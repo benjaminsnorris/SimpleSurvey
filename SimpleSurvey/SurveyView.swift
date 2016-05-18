@@ -51,11 +51,13 @@ import UIKit
     private let internalStackView = UIStackView()
     private let buttonStackView = UIStackView()
     private var blurredBackground: UIVisualEffectView!
+    private var vibrancyView: UIVisualEffectView!
     
     
     // MARK: - Constants
     
     private let maxWidth: CGFloat = 350.0
+    private let minWidth: CGFloat = 280.0
     private let outerMargin: CGFloat = 6.0
     private let internalMargin: CGFloat = 6.0
     private let buttonHeight: CGFloat = 44.0
@@ -88,7 +90,9 @@ private extension SurveyView {
         titleLabel.textColor = titleTextColor
         updateButtonColors(buttonOne)
         updateButtonColors(buttonTwo)
-        blurredBackground.effect = UIBlurEffect(style: lightBackground ? .Light : .Dark)
+        let newBlur = UIBlurEffect(style: lightBackground ? .Light : .Dark)
+        blurredBackground.effect = newBlur
+        vibrancyView.effect = UIVibrancyEffect(forBlurEffect: newBlur)
     }
     
     private func updateButtonColors(button: UIButton) {
@@ -120,11 +124,26 @@ private extension SurveyView {
         mainStackView.topAnchor.constraintEqualToAnchor(blurredBackground.topAnchor, constant: outerMargin).active = true
         mainStackView.bottomAnchor.constraintEqualToAnchor(blurredBackground.bottomAnchor, constant: -outerMargin).active = true
         mainStackView.widthAnchor.constraintLessThanOrEqualToConstant(maxWidth).active = true
+        mainStackView.widthAnchor.constraintGreaterThanOrEqualToConstant(minWidth).active = true
+        mainStackView.centerXAnchor.constraintEqualToAnchor(blurredBackground.centerXAnchor).active = true
+        
         mainStackView.spacing = internalMargin
         mainStackView.axis = .Vertical
         
-        mainStackView.addArrangedSubview(titleLabel)
+        let vibrancyEffect = UIVibrancyEffect(forBlurEffect: blurEffect)
+        vibrancyView = UIVisualEffectView(effect: vibrancyEffect)
+        mainStackView.addArrangedSubview(vibrancyView)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        vibrancyView.contentView.addSubview(titleLabel)
+
+        titleLabel.leadingAnchor.constraintEqualToAnchor(vibrancyView.contentView.leadingAnchor).active = true
+        titleLabel.topAnchor.constraintEqualToAnchor(vibrancyView.contentView.topAnchor, constant: internalMargin).active = true
+        titleLabel.trailingAnchor.constraintEqualToAnchor(vibrancyView.contentView.trailingAnchor).active = true
+        titleLabel.bottomAnchor.constraintEqualToAnchor(vibrancyView.contentView.bottomAnchor, constant: -internalMargin).active = true
+        
         titleLabel.numberOfLines = 0
+        titleLabel.textAlignment = .Center
+        titleLabel.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Vertical)
         titleLabel.text = "Are you happy with this app?"
         
         mainStackView.addArrangedSubview(internalStackView)
