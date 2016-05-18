@@ -46,25 +46,3 @@ extension SurveyView {
     }
     
 }
-
-
-// MARK: - Private API
-
-private extension SurveyView {
-
-    private func transition(to state: State) {
-        UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: [], animations: { 
-            self.titleLabel.text = state == .Positive ? self.positiveTitle() : self.negativeTitle()
-            }, completion: nil)
-        currentState = state
-    }
-    
-    private func positiveTitle() -> String {
-        return "Sweet! Can you leave us a quick review?"
-    }
-    
-    private func negativeTitle() -> String {
-        return "Yikes, sorry! Will you tell us what could be better?"
-    }
-    
-}
