@@ -48,7 +48,7 @@ extension SurveyView {
         case .Initial:
             transition(to: .Feedback)
         case .Rate, .Share, .Feedback:
-            delegate?.shouldHideSurveyView()
+            delegate?.didDeclineSurvey()
             currentState = .Initial
         }
     }

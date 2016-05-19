@@ -9,7 +9,7 @@ import UIKit
 import SettingsActions
 
 public protocol SurveyViewDelegate {
-    func shouldHideSurveyView()
+    func didDeclineSurvey()
     func didSendFeedback()
     func didRateApp()
     func didShareApp()
