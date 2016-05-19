@@ -23,7 +23,7 @@ extension SurveyView {
     func positiveButtonTouched() {
         switch currentState {
         case .Initial:
-            transition(to: settingsActionService.canRateApp() ? .Rate : .Share)
+            transition(to: settingsActionService.canRateApp() && preferToRate ? .Rate : .Share)
         case .Rate:
             guard let viewController = viewController, iTunesItemIdentifier = iTunesItemIdentifier else { fatalError() }
             settingsActionService.rateApp(fromViewController: viewController, iTunesItemIdentifier: iTunesItemIdentifier)
