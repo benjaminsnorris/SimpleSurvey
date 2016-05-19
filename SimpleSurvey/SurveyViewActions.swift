@@ -29,17 +29,17 @@ extension SurveyView {
             guard let viewController = viewController, iTunesItemIdentifier = iTunesItemIdentifier else { fatalError() }
             settingsActionService.rateApp(fromViewController: viewController, iTunesItemIdentifier: iTunesItemIdentifier)
             currentState = .Initial
-            delegate?.hideSurveyView()
+            delegate?.didRateApp()
         case .Share:
             guard let viewController = viewController, iTunesItemIdentifier = iTunesItemIdentifier, appStorePath = appStorePath else { fatalError() }
             settingsActionService.shareApp(fromViewController: viewController, appStoreAppPath: appStorePath)
             currentState = .Initial
-            delegate?.hideSurveyView()
+            delegate?.didShareApp()
         case .Feedback:
             guard let viewController = viewController, feedbackEmail = feedbackEmail else { fatalError() }
             settingsActionService.sendFeedback(fromViewController: viewController, emailAddresses: [feedbackEmail], mailComposeDelegate: self)
             currentState = .Initial
-            delegate?.hideSurveyView()
+            delegate?.didSendFeedback()
         }
     }
     
@@ -48,12 +48,13 @@ extension SurveyView {
         case .Initial:
             transition(to: .Feedback)
         case .Rate, .Share, .Feedback:
-            delegate?.hideSurveyView()
+            delegate?.shouldHideSurveyView()
             currentState = .Initial
         }
     }
     
     func transition(to state: State) {
+        currentState = state
         UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: [], animations: {
             self.titleLabel.hidden = true
             self.internalStackView.hidden = true
@@ -78,7 +79,6 @@ extension SurveyView {
                 self.buttonTwo.setTitle(self.positiveButtonTitle(), forState: .Normal)
             }
         }
-        currentState = state
     }
     
     func initialTitle() -> String {
@@ -86,15 +86,15 @@ extension SurveyView {
     }
     
     func rateTitle() -> String {
-        return "Sweet! Can you leave us a quick review?"
+        return "Sweet! Will you kindly leave us a review?"
     }
     
     func feedbackTitle() -> String {
-        return "Yikes, sorry! Will you tell us what could be better?"
+        return "Uh oh! Could you tell us what’s going on?"
     }
     
     func shareTitle() -> String {
-        return "Great! Would you like to share the app with your friends?"
+        return "Great! Would you share the app with your friends?"
     }
     
     func positiveButtonTitle() -> String {
@@ -102,7 +102,12 @@ extension SurveyView {
     }
     
     func negativeButtonTitle() -> String {
-        return "NO"
+        switch currentState {
+        case .Initial:
+            return "NO"
+        default:
+            return "NOT NOW"
+        }
     }
     
 }
