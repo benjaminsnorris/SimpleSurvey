@@ -74,8 +74,9 @@ public protocol SurveyViewDelegate {
 
     enum State {
         case Initial
-        case Positive
-        case Negative
+        case Rate
+        case Feedback
+        case Share
     }
     
     
@@ -194,7 +195,7 @@ private extension SurveyView {
         titleLabel.numberOfLines = 0
         titleLabel.textAlignment = .Center
         titleLabel.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Vertical)
-        titleLabel.text = "Are you happy with this app?"
+        titleLabel.text = initialTitle()
         
         mainStackView.addArrangedSubview(internalStackView)
         internalStackView.axis = .Horizontal
@@ -203,11 +204,11 @@ private extension SurveyView {
         internalStackView.heightAnchor.constraintEqualToConstant(buttonHeight).active = true
         
         internalStackView.addArrangedSubview(buttonOne)
-        buttonOne.setTitle("NO", forState: .Normal)
+        buttonOne.setTitle(negativeButtonTitle(), forState: .Normal)
         buttonOne.addTarget(self, action: #selector(negativeButtonTouched), forControlEvents: .TouchUpInside)
         
         internalStackView.addArrangedSubview(buttonTwo)
-        buttonTwo.setTitle("YES", forState: .Normal)
+        buttonTwo.setTitle(positiveButtonTitle(), forState: .Normal)
         buttonTwo.addTarget(self, action: #selector(positiveButtonTouched), forControlEvents: .TouchUpInside)
         
         updateColors()

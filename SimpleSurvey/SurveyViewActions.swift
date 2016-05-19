@@ -23,12 +23,14 @@ extension SurveyView {
     func positiveButtonTouched() {
         switch currentState {
         case .Initial:
-            transition(to: .Positive)
-        case .Positive:
+            transition(to: settingsActionService.canRateApp() ? .Rate : .Share)
+        case .Rate:
             guard let viewController = viewController, iTunesItemIdentifier = iTunesItemIdentifier else { fatalError() }
             settingsActionService.rateApp(fromViewController: viewController, iTunesItemIdentifier: iTunesItemIdentifier)
             currentState = .Initial
-        case .Negative:
+        case .Share:
+            print("share")
+        case .Feedback:
             print("feedback")
             currentState = .Initial
         }
@@ -37,11 +39,8 @@ extension SurveyView {
     func negativeButtonTouched() {
         switch currentState {
         case .Initial:
-            transition(to: .Negative)
-        case .Positive:
-            delegate?.hideSurveyView()
-            currentState = .Initial
-        case .Negative:
+            transition(to: .Feedback)
+        case .Rate, .Share, .Feedback:
             delegate?.hideSurveyView()
             currentState = .Initial
         }
@@ -55,7 +54,16 @@ extension SurveyView {
             self.buttonTwo.setTitle(nil, forState: .Normal)
         }) { complete in
             UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: [], animations: {
-                self.titleLabel.text = state == .Positive ? self.positiveTitle() : self.negativeTitle()
+                switch state {
+                case .Rate:
+                    self.titleLabel.text = self.rateTitle()
+                case .Feedback:
+                    self.titleLabel.text = self.feedbackTitle()
+                case .Share:
+                    self.titleLabel.text = self.shareTitle()
+                case .Initial:
+                    self.titleLabel.text = self.initialTitle()
+                }
                 self.titleLabel.hidden = false
                 self.internalStackView.hidden = false
             }) { complete in
@@ -66,12 +74,20 @@ extension SurveyView {
         currentState = state
     }
     
-    func positiveTitle() -> String {
+    func initialTitle() -> String {
+        return "Are you happy with this app?"
+    }
+    
+    func rateTitle() -> String {
         return "Sweet! Can you leave us a quick review?"
     }
     
-    func negativeTitle() -> String {
+    func feedbackTitle() -> String {
         return "Yikes, sorry! Will you tell us what could be better?"
+    }
+    
+    func shareTitle() -> String {
+        return "Great! Would you like to share the app with your friends?"
     }
     
     func positiveButtonTitle() -> String {
