@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SettingsActions
 
 // MARK: - Public API
 
@@ -24,7 +25,8 @@ extension SurveyView {
         case .Initial:
             transition(to: .Positive)
         case .Positive:
-            print("review")
+            guard let viewController = viewController, iTunesItemIdentifier = iTunesItemIdentifier else { fatalError() }
+            settingsActionService.rateApp(fromViewController: viewController, iTunesItemIdentifier: iTunesItemIdentifier)
             currentState = .Initial
         case .Negative:
             print("feedback")

@@ -6,6 +6,7 @@
  */
 
 import UIKit
+import SettingsActions
 
 public protocol SurveyViewDelegate {
     func hideSurveyView()
@@ -17,6 +18,7 @@ public protocol SurveyViewDelegate {
     
     public var viewController: UIViewController?
     public var delegate: SurveyViewDelegate?
+    public var iTunesItemIdentifier: Int?
     
     
     // MARK: - Inspectable properties
@@ -63,6 +65,7 @@ public protocol SurveyViewDelegate {
     
     // MARK: - Internal properties
     
+    var settingsActionService = SettingsActionService()
     var titleLabel = UILabel()
     var buttonOne = UIButton(type: .System)
     var buttonTwo = UIButton(type: .System)
