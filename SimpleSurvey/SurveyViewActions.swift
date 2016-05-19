@@ -8,6 +8,7 @@
 
 import UIKit
 import SettingsActions
+import MessageUI
 
 // MARK: - Public API
 
@@ -35,7 +36,8 @@ extension SurveyView {
             currentState = .Initial
             delegate?.hideSurveyView()
         case .Feedback:
-            print("feedback")
+            guard let viewController = viewController, feedbackEmail = feedbackEmail else { fatalError() }
+            settingsActionService.sendFeedback(fromViewController: viewController, emailAddresses: [feedbackEmail], mailComposeDelegate: self)
             currentState = .Initial
             delegate?.hideSurveyView()
         }
@@ -101,6 +103,18 @@ extension SurveyView {
     
     func negativeButtonTitle() -> String {
         return "NO"
+    }
+    
+}
+
+
+// MARK: - Mail compose delegate
+
+extension SurveyView: MFMailComposeViewControllerDelegate {
+    
+    public func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        guard let viewController = viewController else { fatalError() }
+        viewController.dismissViewControllerAnimated(true, completion: nil)
     }
     
 }

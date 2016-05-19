@@ -20,6 +20,7 @@ public protocol SurveyViewDelegate {
     public var delegate: SurveyViewDelegate?
     public var iTunesItemIdentifier: Int?
     public var appStorePath: String?
+    public var feedbackEmail: String?
     public var preferToRate = true
     
     
