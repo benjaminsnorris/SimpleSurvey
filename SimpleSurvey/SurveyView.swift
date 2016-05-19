@@ -19,6 +19,7 @@ public protocol SurveyViewDelegate {
     public var viewController: UIViewController?
     public var delegate: SurveyViewDelegate?
     public var iTunesItemIdentifier: Int?
+    public var appStorePath: String?
     
     
     // MARK: - Inspectable properties

@@ -28,11 +28,16 @@ extension SurveyView {
             guard let viewController = viewController, iTunesItemIdentifier = iTunesItemIdentifier else { fatalError() }
             settingsActionService.rateApp(fromViewController: viewController, iTunesItemIdentifier: iTunesItemIdentifier)
             currentState = .Initial
+            delegate?.hideSurveyView()
         case .Share:
-            print("share")
+            guard let viewController = viewController, iTunesItemIdentifier = iTunesItemIdentifier, appStorePath = appStorePath else { fatalError() }
+            settingsActionService.shareApp(fromViewController: viewController, appStoreAppPath: appStorePath)
+            currentState = .Initial
+            delegate?.hideSurveyView()
         case .Feedback:
             print("feedback")
             currentState = .Initial
+            delegate?.hideSurveyView()
         }
     }
     
