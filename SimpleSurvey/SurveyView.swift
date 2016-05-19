@@ -62,7 +62,8 @@ import UIKit
     var buttonOne = UIButton(type: .System)
     var buttonTwo = UIButton(type: .System)
     var currentState = State.Initial
-    
+    var internalStackView = UIStackView()
+
     enum State {
         case Initial
         case Positive
@@ -73,7 +74,6 @@ import UIKit
     // MARK: - Private properties
     
     private let mainStackView = UIStackView()
-    private let internalStackView = UIStackView()
     private let buttonStackView = UIStackView()
     private var blurredBackground: UIVisualEffectView!
     private var vibrancyView: UIVisualEffectView!
@@ -101,45 +101,6 @@ import UIKit
     
     public override func tintColorDidChange() {
         updateColors()
-    }
-
-}
-
-
-// MARK: - Internal functions
-
-extension SurveyView {
-    
-    func transition(to state: State) {
-        self.titleLabel.text = state == .Positive ? self.positiveTitle() : self.negativeTitle()
-        UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: [], animations: {
-            self.internalStackView.hidden = true
-            self.buttonOne.setTitle(nil, forState: .Normal)
-            self.buttonTwo.setTitle(nil, forState: .Normal)
-        }) { complete in
-            UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: [], animations: { 
-                self.internalStackView.hidden = false
-                self.buttonOne.setTitle(self.negativeButtonTitle(), forState: .Normal)
-                self.buttonTwo.setTitle(self.positiveButtonTitle(), forState: .Normal)
-                }, completion: nil)
-        }
-        currentState = state
-    }
-    
-    func positiveTitle() -> String {
-        return "Sweet! Can you leave us a quick review?"
-    }
-    
-    func negativeTitle() -> String {
-        return "Yikes, sorry! Will you tell us what could be better?"
-    }
-    
-    func positiveButtonTitle() -> String {
-        return "YES"
-    }
-    
-    func negativeButtonTitle() -> String {
-        return "NO"
     }
 
 }
