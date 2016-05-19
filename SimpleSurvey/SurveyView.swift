@@ -7,11 +7,16 @@
 
 import UIKit
 
+public protocol SurveyViewDelegate {
+    func hideSurveyView()
+}
+
 @IBDesignable public class SurveyView: UIView {
     
     // MARK: - Public properties
     
     public var viewController: UIViewController?
+    public var delegate: SurveyViewDelegate?
     
     
     // MARK: - Inspectable properties

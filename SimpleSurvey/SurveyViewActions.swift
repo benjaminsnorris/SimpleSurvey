@@ -37,10 +37,10 @@ extension SurveyView {
         case .Initial:
             transition(to: .Negative)
         case .Positive:
-            print("hide")
+            delegate?.hideSurveyView()
             currentState = .Initial
         case .Negative:
-            print("hide")
+            delegate?.hideSurveyView()
             currentState = .Initial
         }
     }
