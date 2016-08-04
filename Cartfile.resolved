@@ -1,3 +1,2 @@
-github "benjaminsnorris/VersionNumber" "v1.1"
-github "benjaminsnorris/DeviceInfo" "v0.2"
-github "benjaminsnorris/SettingsActions" "v0.3"
+github "benjaminsnorris/DeviceInfo" "v1.0"
+github "benjaminsnorris/SettingsActions" "v0.9"

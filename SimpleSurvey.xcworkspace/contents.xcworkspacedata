@@ -8,9 +8,6 @@
       location = "group:Carthage/Checkouts/SettingsActions/SettingsActions.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Carthage/Checkouts/VersionNumber/VersionNumber.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:Carthage/Checkouts/DeviceInfo/DeviceInfo.xcodeproj">
    </FileRef>
 </Workspace>
