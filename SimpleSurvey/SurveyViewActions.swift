@@ -31,7 +31,7 @@ extension SurveyView {
             currentState = .Initial
             delegate?.didRateApp()
         case .Share:
-            guard let viewController = viewController, iTunesItemIdentifier = iTunesItemIdentifier, appStorePath = appStorePath else { fatalError() }
+            guard let viewController = viewController, appStorePath = appStorePath else { fatalError() }
             settingsActionService.shareApp(fromViewController: viewController, appStoreAppPath: appStorePath)
             currentState = .Initial
             delegate?.didShareApp()
