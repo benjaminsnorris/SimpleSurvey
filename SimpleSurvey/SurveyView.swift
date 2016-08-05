@@ -30,14 +30,14 @@ public protocol SurveyViewDelegate {
     // MARK: - Inspectable properties
     
     /// Text color for title label
-    @IBInspectable public var titleTextColor: UIColor = .black() {
+    @IBInspectable public var titleTextColor: UIColor = .black {
         didSet {
             updateColors()
         }
     }
     
     /// Text color for buttons
-    @IBInspectable public var buttonTextColor: UIColor = .white() {
+    @IBInspectable public var buttonTextColor: UIColor = .white {
         didSet {
             updateColors()
         }
@@ -159,7 +159,7 @@ private extension SurveyView {
     }
     
     private func setupViews() {
-        backgroundColor = .clear()
+        backgroundColor = .clear
         translatesAutoresizingMaskIntoConstraints = false
         
         let blurEffect = UIBlurEffect(style: lightBackground ? .light : .dark)

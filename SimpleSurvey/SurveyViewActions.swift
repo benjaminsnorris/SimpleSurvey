@@ -26,17 +26,17 @@ extension SurveyView {
         case .initial:
             transition(to: settingsActionService.canRateApp() && preferToRate ? .rate : .share)
         case .rate:
-            guard let viewController = viewController, iTunesItemIdentifier = iTunesItemIdentifier else { fatalError() }
+            guard let viewController = viewController, let iTunesItemIdentifier = iTunesItemIdentifier else { fatalError() }
             settingsActionService.rateApp(fromViewController: viewController, iTunesItemIdentifier: iTunesItemIdentifier)
             currentState = .initial
             delegate?.didRateApp()
         case .share:
-            guard let viewController = viewController, appStorePath = appStorePath else { fatalError() }
+            guard let viewController = viewController, let appStorePath = appStorePath else { fatalError() }
             settingsActionService.shareApp(fromViewController: viewController, appStoreAppPath: appStorePath)
             currentState = .initial
             delegate?.didShareApp()
         case .feedback:
-            guard let viewController = viewController, feedbackEmail = feedbackEmail else { fatalError() }
+            guard let viewController = viewController, let feedbackEmail = feedbackEmail else { fatalError() }
             settingsActionService.sendFeedback(fromViewController: viewController, emailAddresses: [feedbackEmail], mailComposeDelegate: self)
             currentState = .initial
             delegate?.didSendFeedback()
@@ -117,7 +117,7 @@ extension SurveyView {
 
 extension SurveyView: MFMailComposeViewControllerDelegate {
     
-    public func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: NSError?) {
+    public func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         guard let viewController = viewController else { fatalError() }
         viewController.dismiss(animated: true, completion: nil)
     }
