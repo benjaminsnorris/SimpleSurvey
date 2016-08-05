@@ -23,60 +23,60 @@ extension SurveyView {
     
     func positiveButtonTouched() {
         switch currentState {
-        case .Initial:
-            transition(to: settingsActionService.canRateApp() && preferToRate ? .Rate : .Share)
-        case .Rate:
+        case .initial:
+            transition(to: settingsActionService.canRateApp() && preferToRate ? .rate : .share)
+        case .rate:
             guard let viewController = viewController, iTunesItemIdentifier = iTunesItemIdentifier else { fatalError() }
             settingsActionService.rateApp(fromViewController: viewController, iTunesItemIdentifier: iTunesItemIdentifier)
-            currentState = .Initial
+            currentState = .initial
             delegate?.didRateApp()
-        case .Share:
+        case .share:
             guard let viewController = viewController, appStorePath = appStorePath else { fatalError() }
             settingsActionService.shareApp(fromViewController: viewController, appStoreAppPath: appStorePath)
-            currentState = .Initial
+            currentState = .initial
             delegate?.didShareApp()
-        case .Feedback:
+        case .feedback:
             guard let viewController = viewController, feedbackEmail = feedbackEmail else { fatalError() }
             settingsActionService.sendFeedback(fromViewController: viewController, emailAddresses: [feedbackEmail], mailComposeDelegate: self)
-            currentState = .Initial
+            currentState = .initial
             delegate?.didSendFeedback()
         }
     }
     
     func negativeButtonTouched() {
         switch currentState {
-        case .Initial:
-            transition(to: .Feedback)
-        case .Rate, .Share, .Feedback:
+        case .initial:
+            transition(to: .feedback)
+        case .rate, .share, .feedback:
             delegate?.didDeclineSurvey()
-            currentState = .Initial
+            currentState = .initial
         }
     }
     
     func transition(to state: State) {
         currentState = state
-        UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: [], animations: {
-            self.titleLabel.hidden = true
-            self.internalStackView.hidden = true
-            self.buttonOne.setTitle(nil, forState: .Normal)
-            self.buttonTwo.setTitle(nil, forState: .Normal)
+        UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: [], animations: {
+            self.titleLabel.isHidden = true
+            self.internalStackView.isHidden = true
+            self.buttonOne.setTitle(nil, for: UIControlState())
+            self.buttonTwo.setTitle(nil, for: UIControlState())
         }) { complete in
-            UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: [], animations: {
+            UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: [], animations: {
                 switch state {
-                case .Rate:
+                case .rate:
                     self.titleLabel.text = self.rateTitle()
-                case .Feedback:
+                case .feedback:
                     self.titleLabel.text = self.feedbackTitle()
-                case .Share:
+                case .share:
                     self.titleLabel.text = self.shareTitle()
-                case .Initial:
+                case .initial:
                     self.titleLabel.text = self.initialTitle()
                 }
-                self.titleLabel.hidden = false
-                self.internalStackView.hidden = false
+                self.titleLabel.isHidden = false
+                self.internalStackView.isHidden = false
             }) { complete in
-                self.buttonOne.setTitle(self.negativeButtonTitle(), forState: .Normal)
-                self.buttonTwo.setTitle(self.positiveButtonTitle(), forState: .Normal)
+                self.buttonOne.setTitle(self.negativeButtonTitle(), for: UIControlState())
+                self.buttonTwo.setTitle(self.positiveButtonTitle(), for: UIControlState())
             }
         }
     }
@@ -103,7 +103,7 @@ extension SurveyView {
     
     func negativeButtonTitle() -> String {
         switch currentState {
-        case .Initial:
+        case .initial:
             return "NO"
         default:
             return "NOT NOW"
@@ -117,9 +117,9 @@ extension SurveyView {
 
 extension SurveyView: MFMailComposeViewControllerDelegate {
     
-    public func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+    public func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: NSError?) {
         guard let viewController = viewController else { fatalError() }
-        viewController.dismissViewControllerAnimated(true, completion: nil)
+        viewController.dismiss(animated: true, completion: nil)
     }
     
 }
