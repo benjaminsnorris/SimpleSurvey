@@ -88,18 +88,18 @@ public protocol SurveyViewDelegate {
     
     // MARK: - Private properties
     
-    private let mainStackView = UIStackView()
-    private let buttonStackView = UIStackView()
-    private var blurredBackground: UIVisualEffectView!
-    private var vibrancyView: UIVisualEffectView!
+    fileprivate let mainStackView = UIStackView()
+    fileprivate let buttonStackView = UIStackView()
+    fileprivate var blurredBackground: UIVisualEffectView!
+    fileprivate var vibrancyView: UIVisualEffectView!
     
     
     // MARK: - Constants
     
-    private let maxWidth: CGFloat = 350.0
-    private let outerMargin: CGFloat = 6.0
-    private let internalMargin: CGFloat = 6.0
-    private let buttonHeight: CGFloat = 44.0
+    static fileprivate let maxWidth: CGFloat = 350.0
+    static fileprivate let outerMargin: CGFloat = 6.0
+    static fileprivate let internalMargin: CGFloat = 6.0
+    static fileprivate let buttonHeight: CGFloat = 44.0
     
     
     // MARK: - Lifecycle overrides
@@ -123,9 +123,9 @@ public protocol SurveyViewDelegate {
 
 // MARK: - Private functions
 
-private extension SurveyView {
+fileprivate extension SurveyView {
     
-    private func updateColors() {
+    fileprivate func updateColors() {
         titleLabel.textColor = titleTextColor
         updateColors(buttonOne)
         updateColors(buttonTwo)
@@ -134,31 +134,31 @@ private extension SurveyView {
         vibrancyView.effect = UIVibrancyEffect(blurEffect: newBlur)
     }
     
-    private func updateColors(_ button: UIButton) {
+    fileprivate func updateColors(_ button: UIButton) {
         button.backgroundColor = tintColor
         button.setTitleColor(buttonTextColor, for: UIControlState())
     }
     
-    private func updateCorners() {
+    fileprivate func updateCorners() {
         updateCorners(buttonOne)
         updateCorners(buttonTwo)
     }
     
-    private func updateCorners(_ button: UIButton) {
+    fileprivate func updateCorners(_ button: UIButton) {
         button.layer.cornerRadius = cornerRadius
     }
     
-    private func updateFonts() {
+    fileprivate func updateFonts() {
         updateFont(buttonOne)
         updateFont(buttonTwo)
         titleLabel.font = titleFont
     }
     
-    private func updateFont(_ button: UIButton) {
+    fileprivate func updateFont(_ button: UIButton) {
         button.titleLabel?.font = buttonFont
     }
     
-    private func setupViews() {
+    fileprivate func setupViews() {
         backgroundColor = .clear
         translatesAutoresizingMaskIntoConstraints = false
         
@@ -173,18 +173,18 @@ private extension SurveyView {
         
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         blurredBackground.contentView.addSubview(mainStackView)
-        let mainLeading = mainStackView.leadingAnchor.constraint(equalTo: blurredBackground.leadingAnchor, constant: outerMargin)
+        let mainLeading = mainStackView.leadingAnchor.constraint(equalTo: blurredBackground.leadingAnchor, constant: SurveyView.outerMargin)
         mainLeading.priority = UILayoutPriorityDefaultHigh
         mainLeading.isActive = true
-        let mainTrailing = mainStackView.trailingAnchor.constraint(equalTo: blurredBackground.trailingAnchor, constant: -outerMargin)
+        let mainTrailing = mainStackView.trailingAnchor.constraint(equalTo: blurredBackground.trailingAnchor, constant: -SurveyView.outerMargin)
         mainTrailing.priority = UILayoutPriorityDefaultHigh
         mainTrailing.isActive = true
-        mainStackView.topAnchor.constraint(equalTo: blurredBackground.topAnchor, constant: outerMargin).isActive = true
-        mainStackView.bottomAnchor.constraint(equalTo: blurredBackground.bottomAnchor, constant: -outerMargin).isActive = true
-        mainStackView.widthAnchor.constraint(lessThanOrEqualToConstant: maxWidth).isActive = true
+        mainStackView.topAnchor.constraint(equalTo: blurredBackground.topAnchor, constant: SurveyView.outerMargin).isActive = true
+        mainStackView.bottomAnchor.constraint(equalTo: blurredBackground.bottomAnchor, constant: -SurveyView.outerMargin).isActive = true
+        mainStackView.widthAnchor.constraint(lessThanOrEqualToConstant: SurveyView.maxWidth).isActive = true
         mainStackView.centerXAnchor.constraint(equalTo: blurredBackground.centerXAnchor).isActive = true
         
-        mainStackView.spacing = internalMargin
+        mainStackView.spacing = SurveyView.internalMargin
         mainStackView.axis = .vertical
         
         let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect)
@@ -194,9 +194,9 @@ private extension SurveyView {
         vibrancyView.contentView.addSubview(titleLabel)
 
         titleLabel.leadingAnchor.constraint(equalTo: vibrancyView.contentView.leadingAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: vibrancyView.contentView.topAnchor, constant: internalMargin).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: vibrancyView.contentView.topAnchor, constant: SurveyView.internalMargin).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: vibrancyView.contentView.trailingAnchor).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: vibrancyView.contentView.bottomAnchor, constant: -internalMargin).isActive = true
+        titleLabel.bottomAnchor.constraint(equalTo: vibrancyView.contentView.bottomAnchor, constant: -SurveyView.internalMargin).isActive = true
         
         titleLabel.numberOfLines = 0
         titleLabel.textAlignment = .center
@@ -206,8 +206,8 @@ private extension SurveyView {
         mainStackView.addArrangedSubview(internalStackView)
         internalStackView.axis = .horizontal
         internalStackView.distribution = .fillEqually
-        internalStackView.spacing = internalMargin
-        internalStackView.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
+        internalStackView.spacing = SurveyView.internalMargin
+        internalStackView.heightAnchor.constraint(equalToConstant: SurveyView.buttonHeight).isActive = true
         
         internalStackView.addArrangedSubview(buttonOne)
         buttonOne.setTitle(negativeButtonTitle(), for: UIControlState())
