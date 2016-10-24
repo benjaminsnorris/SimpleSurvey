@@ -1,2 +1,2 @@
-github "benjaminsnorris/DeviceInfo" ~> 1.0
-github "benjaminsnorris/SettingsActions" ~> 0.9
+github "benjaminsnorris/DeviceInfo" ~> 1.2
+github "benjaminsnorris/SettingsActions" ~> 1.0
