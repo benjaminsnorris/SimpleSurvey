@@ -15,54 +15,54 @@ public protocol SurveyViewDelegate {
     func didShareApp()
 }
 
-@IBDesignable public class SurveyView: UIView {
+@IBDesignable open class SurveyView: UIView {
     
     // MARK: - Public properties
     
-    public var viewController: UIViewController?
-    public var delegate: SurveyViewDelegate?
-    public var iTunesItemIdentifier: Int?
-    public var appStorePath: String?
-    public var feedbackEmail: String?
-    public var preferToRate = true
+    open var viewController: UIViewController?
+    open var delegate: SurveyViewDelegate?
+    open var iTunesItemIdentifier: Int?
+    open var appStorePath: String?
+    open var feedbackEmail: String?
+    open var preferToRate = true
     
     
     // MARK: - Inspectable properties
     
     /// Text color for title label
-    @IBInspectable public var titleTextColor: UIColor = .blackColor() {
+    @IBInspectable open var titleTextColor: UIColor = .black {
         didSet {
             updateColors()
         }
     }
     
     /// Text color for buttons
-    @IBInspectable public var buttonTextColor: UIColor = .whiteColor() {
+    @IBInspectable open var buttonTextColor: UIColor = .white {
         didSet {
             updateColors()
         }
     }
     
     
-    @IBInspectable public var lightBackground: Bool = true {
+    @IBInspectable open var lightBackground: Bool = true {
         didSet {
             updateColors()
         }
     }
     
-    @IBInspectable public var cornerRadius: CGFloat = 4.0 {
+    @IBInspectable open var cornerRadius: CGFloat = 4.0 {
         didSet {
             updateCorners()
         }
     }
     
-    @IBInspectable public var titleFont: UIFont = UIFont.systemFontOfSize(17.0, weight: UIFontWeightMedium) {
+    @IBInspectable open var titleFont: UIFont = UIFont.systemFont(ofSize: 17.0, weight: UIFontWeightMedium) {
         didSet {
             updateFonts()
         }
     }
     
-    @IBInspectable public var buttonFont: UIFont = UIFont.systemFontOfSize(17.0, weight: UIFontWeightBold) {
+    @IBInspectable open var buttonFont: UIFont = UIFont.systemFont(ofSize: 17.0, weight: UIFontWeightBold) {
         didSet {
             updateFonts()
         }
@@ -73,33 +73,33 @@ public protocol SurveyViewDelegate {
     
     var settingsActionService = SettingsActionService()
     var titleLabel = UILabel()
-    var buttonOne = UIButton(type: .System)
-    var buttonTwo = UIButton(type: .System)
-    var currentState = State.Initial
+    var buttonOne = UIButton(type: .system)
+    var buttonTwo = UIButton(type: .system)
+    var currentState = State.initial
     var internalStackView = UIStackView()
 
     enum State {
-        case Initial
-        case Rate
-        case Feedback
-        case Share
+        case initial
+        case rate
+        case feedback
+        case share
     }
     
     
     // MARK: - Private properties
     
-    private let mainStackView = UIStackView()
-    private let buttonStackView = UIStackView()
-    private var blurredBackground: UIVisualEffectView!
-    private var vibrancyView: UIVisualEffectView!
+    fileprivate let mainStackView = UIStackView()
+    fileprivate let buttonStackView = UIStackView()
+    fileprivate var blurredBackground: UIVisualEffectView!
+    fileprivate var vibrancyView: UIVisualEffectView!
     
     
     // MARK: - Constants
     
-    private let maxWidth: CGFloat = 350.0
-    private let outerMargin: CGFloat = 6.0
-    private let internalMargin: CGFloat = 6.0
-    private let buttonHeight: CGFloat = 44.0
+    fileprivate let maxWidth: CGFloat = 350.0
+    fileprivate let outerMargin: CGFloat = 6.0
+    fileprivate let internalMargin: CGFloat = 6.0
+    fileprivate let buttonHeight: CGFloat = 44.0
     
     
     // MARK: - Lifecycle overrides
@@ -114,7 +114,7 @@ public protocol SurveyViewDelegate {
         setupViews()
     }
     
-    public override func tintColorDidChange() {
+    open override func tintColorDidChange() {
         updateColors()
     }
 
@@ -125,97 +125,97 @@ public protocol SurveyViewDelegate {
 
 private extension SurveyView {
     
-    private func updateColors() {
+    func updateColors() {
         titleLabel.textColor = titleTextColor
         updateColors(buttonOne)
         updateColors(buttonTwo)
-        let newBlur = UIBlurEffect(style: lightBackground ? .Light : .Dark)
+        let newBlur = UIBlurEffect(style: lightBackground ? .light : .dark)
         blurredBackground.effect = newBlur
-        vibrancyView.effect = UIVibrancyEffect(forBlurEffect: newBlur)
+        vibrancyView.effect = UIVibrancyEffect(blurEffect: newBlur)
     }
     
-    private func updateColors(button: UIButton) {
+    func updateColors(_ button: UIButton) {
         button.backgroundColor = tintColor
-        button.setTitleColor(buttonTextColor, forState: .Normal)
+        button.setTitleColor(buttonTextColor, for: UIControlState())
     }
     
-    private func updateCorners() {
+    func updateCorners() {
         updateCorners(buttonOne)
         updateCorners(buttonTwo)
     }
     
-    private func updateCorners(button: UIButton) {
+    func updateCorners(_ button: UIButton) {
         button.layer.cornerRadius = cornerRadius
     }
     
-    private func updateFonts() {
+    func updateFonts() {
         updateFont(buttonOne)
         updateFont(buttonTwo)
         titleLabel.font = titleFont
     }
     
-    private func updateFont(button: UIButton) {
+    func updateFont(_ button: UIButton) {
         button.titleLabel?.font = buttonFont
     }
     
-    private func setupViews() {
-        backgroundColor = .clearColor()
+    func setupViews() {
+        backgroundColor = .clear
         translatesAutoresizingMaskIntoConstraints = false
         
-        let blurEffect = UIBlurEffect(style: lightBackground ? .Light : .Dark)
+        let blurEffect = UIBlurEffect(style: lightBackground ? .light : .dark)
         blurredBackground = UIVisualEffectView(effect: blurEffect)
         addSubview(blurredBackground)
         blurredBackground.translatesAutoresizingMaskIntoConstraints = false
-        blurredBackground.leadingAnchor.constraintEqualToAnchor(leadingAnchor).active = true
-        blurredBackground.topAnchor.constraintEqualToAnchor(topAnchor).active = true
-        blurredBackground.trailingAnchor.constraintEqualToAnchor(trailingAnchor).active = true
-        blurredBackground.bottomAnchor.constraintEqualToAnchor(bottomAnchor).active = true
+        blurredBackground.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        blurredBackground.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        blurredBackground.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        blurredBackground.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         blurredBackground.contentView.addSubview(mainStackView)
-        let mainLeading = mainStackView.leadingAnchor.constraintEqualToAnchor(blurredBackground.leadingAnchor, constant: outerMargin)
+        let mainLeading = mainStackView.leadingAnchor.constraint(equalTo: blurredBackground.leadingAnchor, constant: outerMargin)
         mainLeading.priority = UILayoutPriorityDefaultHigh
-        mainLeading.active = true
-        let mainTrailing = mainStackView.trailingAnchor.constraintEqualToAnchor(blurredBackground.trailingAnchor, constant: -outerMargin)
+        mainLeading.isActive = true
+        let mainTrailing = mainStackView.trailingAnchor.constraint(equalTo: blurredBackground.trailingAnchor, constant: -outerMargin)
         mainTrailing.priority = UILayoutPriorityDefaultHigh
-        mainTrailing.active = true
-        mainStackView.topAnchor.constraintEqualToAnchor(blurredBackground.topAnchor, constant: outerMargin).active = true
-        mainStackView.bottomAnchor.constraintEqualToAnchor(blurredBackground.bottomAnchor, constant: -outerMargin).active = true
-        mainStackView.widthAnchor.constraintLessThanOrEqualToConstant(maxWidth).active = true
-        mainStackView.centerXAnchor.constraintEqualToAnchor(blurredBackground.centerXAnchor).active = true
+        mainTrailing.isActive = true
+        mainStackView.topAnchor.constraint(equalTo: blurredBackground.topAnchor, constant: outerMargin).isActive = true
+        mainStackView.bottomAnchor.constraint(equalTo: blurredBackground.bottomAnchor, constant: -outerMargin).isActive = true
+        mainStackView.widthAnchor.constraint(lessThanOrEqualToConstant: maxWidth).isActive = true
+        mainStackView.centerXAnchor.constraint(equalTo: blurredBackground.centerXAnchor).isActive = true
         
         mainStackView.spacing = internalMargin
-        mainStackView.axis = .Vertical
+        mainStackView.axis = .vertical
         
-        let vibrancyEffect = UIVibrancyEffect(forBlurEffect: blurEffect)
+        let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect)
         vibrancyView = UIVisualEffectView(effect: vibrancyEffect)
         mainStackView.addArrangedSubview(vibrancyView)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         vibrancyView.contentView.addSubview(titleLabel)
 
-        titleLabel.leadingAnchor.constraintEqualToAnchor(vibrancyView.contentView.leadingAnchor).active = true
-        titleLabel.topAnchor.constraintEqualToAnchor(vibrancyView.contentView.topAnchor, constant: internalMargin).active = true
-        titleLabel.trailingAnchor.constraintEqualToAnchor(vibrancyView.contentView.trailingAnchor).active = true
-        titleLabel.bottomAnchor.constraintEqualToAnchor(vibrancyView.contentView.bottomAnchor, constant: -internalMargin).active = true
+        titleLabel.leadingAnchor.constraint(equalTo: vibrancyView.contentView.leadingAnchor).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: vibrancyView.contentView.topAnchor, constant: internalMargin).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: vibrancyView.contentView.trailingAnchor).isActive = true
+        titleLabel.bottomAnchor.constraint(equalTo: vibrancyView.contentView.bottomAnchor, constant: -internalMargin).isActive = true
         
         titleLabel.numberOfLines = 0
-        titleLabel.textAlignment = .Center
-        titleLabel.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Vertical)
+        titleLabel.textAlignment = .center
+        titleLabel.setContentHuggingPriority(UILayoutPriorityRequired, for: .vertical)
         titleLabel.text = initialTitle()
         
         mainStackView.addArrangedSubview(internalStackView)
-        internalStackView.axis = .Horizontal
-        internalStackView.distribution = .FillEqually
+        internalStackView.axis = .horizontal
+        internalStackView.distribution = .fillEqually
         internalStackView.spacing = internalMargin
-        internalStackView.heightAnchor.constraintEqualToConstant(buttonHeight).active = true
+        internalStackView.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
         
         internalStackView.addArrangedSubview(buttonOne)
-        buttonOne.setTitle(negativeButtonTitle(), forState: .Normal)
-        buttonOne.addTarget(self, action: #selector(negativeButtonTouched), forControlEvents: .TouchUpInside)
+        buttonOne.setTitle(negativeButtonTitle(), for: UIControlState())
+        buttonOne.addTarget(self, action: #selector(negativeButtonTouched), for: .touchUpInside)
         
         internalStackView.addArrangedSubview(buttonTwo)
-        buttonTwo.setTitle(positiveButtonTitle(), forState: .Normal)
-        buttonTwo.addTarget(self, action: #selector(positiveButtonTouched), forControlEvents: .TouchUpInside)
+        buttonTwo.setTitle(positiveButtonTitle(), for: UIControlState())
+        buttonTwo.addTarget(self, action: #selector(positiveButtonTouched), for: .touchUpInside)
         
         updateColors()
         updateCorners()
