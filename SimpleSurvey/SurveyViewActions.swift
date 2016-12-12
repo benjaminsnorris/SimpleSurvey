@@ -83,8 +83,18 @@ extension SurveyView {
     }
     
     func initialTitle() -> String {
+        let randomIndex = arc4random_uniform(UInt32(possibleInitialTitles.count))
+        return possibleInitialTitles[Int(randomIndex)]
+    }
+    
+    var possibleInitialTitles: [String] {
         let appName = DeviceInfoService().appName
-        return "Is \(appName) working well for you?"
+        return [
+            "Is \(appName) working well for you?",
+            "Do you enjoy using \(appName)?",
+            "Has \(appName) been helpful for you?",
+            "Do you find \(appName) valuable?",
+        ]
     }
     
     func rateTitle() -> String {
