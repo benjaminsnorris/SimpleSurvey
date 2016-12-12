@@ -25,6 +25,7 @@ public protocol SurveyViewDelegate {
     open var appStorePath: String?
     open var feedbackEmail: String?
     open var preferToRate = true
+    open var alreadyRated = false
     
     
     // MARK: - Inspectable properties

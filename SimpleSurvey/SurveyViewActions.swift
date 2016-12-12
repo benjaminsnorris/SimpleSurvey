@@ -88,6 +88,9 @@ extension SurveyView {
     }
     
     func rateTitle() -> String {
+        if alreadyRated {
+            return "Reviews are reset with each update. Could you help us with another?"
+        }
         return "Sweet! Will you kindly leave us a review?"
     }
     
