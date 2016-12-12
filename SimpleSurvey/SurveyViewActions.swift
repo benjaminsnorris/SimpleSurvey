@@ -75,6 +75,7 @@ extension SurveyView {
                 }
                 self.titleLabel.isHidden = false
                 self.internalStackView.isHidden = false
+                self.delegate?.isAdjustingHeight()
             }) { complete in
                 self.buttonOne.setTitle(self.negativeButtonTitle(), for: UIControlState())
                 self.buttonTwo.setTitle(self.positiveButtonTitle(), for: UIControlState())

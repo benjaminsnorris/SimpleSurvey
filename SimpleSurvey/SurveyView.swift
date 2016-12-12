@@ -13,6 +13,7 @@ public protocol SurveyViewDelegate {
     func didSendFeedback()
     func didRateApp()
     func didShareApp()
+    func isAdjustingHeight()
 }
 
 @IBDesignable open class SurveyView: UIView {
