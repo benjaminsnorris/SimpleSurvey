@@ -9,6 +9,7 @@
 import UIKit
 import SettingsActions
 import MessageUI
+import DeviceInfo
 
 // MARK: - Public API
 
@@ -28,18 +29,18 @@ extension SurveyView {
         case .rate:
             guard let viewController = viewController, let iTunesItemIdentifier = iTunesItemIdentifier else { fatalError() }
             settingsActionService.rateApp(fromViewController: viewController, iTunesItemIdentifier: iTunesItemIdentifier)
-            currentState = .initial
             delegate?.didRateApp()
+            transition(to: .initial)
         case .share:
             guard let viewController = viewController, let appStorePath = appStorePath else { fatalError() }
             settingsActionService.shareApp(fromViewController: viewController, appStoreAppPath: appStorePath)
-            currentState = .initial
             delegate?.didShareApp()
+            transition(to: .initial)
         case .feedback:
             guard let viewController = viewController, let feedbackEmail = feedbackEmail else { fatalError() }
             settingsActionService.sendFeedback(fromViewController: viewController, emailAddresses: [feedbackEmail], mailComposeDelegate: self)
-            currentState = .initial
             delegate?.didSendFeedback()
+            transition(to: .initial)
         }
     }
     
@@ -49,7 +50,7 @@ extension SurveyView {
             transition(to: .feedback)
         case .rate, .share, .feedback:
             delegate?.didDeclineSurvey()
-            currentState = .initial
+            transition(to: .initial)
         }
     }
     
@@ -82,7 +83,8 @@ extension SurveyView {
     }
     
     func initialTitle() -> String {
-        return "Are you happy with this app?"
+        let appName = DeviceInfoService().appName
+        return "Is \(appName) working well for you?"
     }
     
     func rateTitle() -> String {
@@ -98,13 +100,18 @@ extension SurveyView {
     }
     
     func positiveButtonTitle() -> String {
-        return "YES"
+        switch currentState {
+        case .initial:
+            return "😄 YES"
+        default:
+            return "YES"
+        }
     }
     
     func negativeButtonTitle() -> String {
         switch currentState {
         case .initial:
-            return "NO"
+            return "😒 NO"
         default:
             return "NOT NOW"
         }
