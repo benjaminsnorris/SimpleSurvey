@@ -25,20 +25,20 @@ extension SurveyView {
     func positiveButtonTouched() {
         switch currentState {
         case .initial:
-            transition(to: settingsActionService.canRateApp() && preferToRate ? .rate : .share)
+            transition(to: settingsActionService.canLaunchAppStore() && preferToRate ? .rate : .share)
         case .rate:
             guard let viewController = viewController, let iTunesItemIdentifier = iTunesItemIdentifier else { fatalError() }
-            settingsActionService.rateApp(fromViewController: viewController, iTunesItemIdentifier: iTunesItemIdentifier)
+            settingsActionService.rateApp(from: viewController, iTunesItemIdentifier: iTunesItemIdentifier)
             delegate?.didRateApp()
             transition(to: .initial)
         case .share:
             guard let viewController = viewController, let appStorePath = appStorePath else { fatalError() }
-            settingsActionService.shareApp(fromViewController: viewController, appStoreAppPath: appStorePath)
+            settingsActionService.shareApp(from: viewController, sourceView: buttonTwo, appStoreAppPath: appStorePath)
             delegate?.didShareApp()
             transition(to: .initial)
         case .feedback:
             guard let viewController = viewController, let feedbackEmail = feedbackEmail else { fatalError() }
-            settingsActionService.sendFeedback(fromViewController: viewController, emailAddresses: [feedbackEmail], mailComposeDelegate: self)
+            settingsActionService.sendFeedback(from: viewController, emailAddresses: [feedbackEmail], mailComposeDelegate: self)
             delegate?.didSendFeedback()
             transition(to: .initial)
         }
